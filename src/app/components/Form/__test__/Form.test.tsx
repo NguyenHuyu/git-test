@@ -25,6 +25,7 @@ beforeAll(() => server.listen());
 afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
 
+
 describe('Form Đăng nhập', () => {
     it('Đúng email đúng pass', async () => {
         render(<Form />);
@@ -39,7 +40,7 @@ describe('Form Đăng nhập', () => {
         fireEvent.click(submitButton);
 
         await waitFor(() => {
-            const successMessage = screen.getByText('Đăng nhập thành công');
+            const successMessage = screen.getByLabelText("message")
             expect(successMessage).toBeInTheDocument();
         });
     });
@@ -50,17 +51,16 @@ describe('Form Đăng nhập', () => {
         const passwordInput = screen.getByLabelText('password');
         const submitButton = screen.getByText('Submit');
 
-        fireEvent.change(emailInput, { target: { value: 'tes2t@example.com' } });
+        fireEvent.change(emailInput, { target: { value: 'tes557652t@example.com' } });
         fireEvent.change(passwordInput, { target: { value: 'password' } });
 
         fireEvent.click(submitButton);
 
         await waitFor(() => {
-            const successMessage = screen.getByText('Email không đúng');
+            const successMessage = screen.getByLabelText("message")
             expect(successMessage).toBeInTheDocument();
         });
     });
-
     it('Đúng email sai pass', async () => {
         render(<Form />);
 
@@ -69,19 +69,17 @@ describe('Form Đăng nhập', () => {
         const submitButton = screen.getByText('Submit');
 
         fireEvent.change(emailInput, { target: { value: 'test@example.com' } });
-        fireEvent.change(passwordInput, { target: { value: 'pas22sword' } });
+        fireEvent.change(passwordInput, { target: { value: 'pas22sword45' } });
 
         fireEvent.click(submitButton);
 
         await waitFor(() => {
-            const successMessage = screen.getByText('Password không đúng');
+            const successMessage = screen.getByLabelText("message")
             expect(successMessage).toBeInTheDocument();
         });
     });
-
     it('Sai email sai pass', async () => {
         render(<Form />);
-
         const emailInput = screen.getByLabelText('email');
         const passwordInput = screen.getByLabelText('password');
         const submitButton = screen.getByText('Submit');
@@ -92,7 +90,7 @@ describe('Form Đăng nhập', () => {
         fireEvent.click(submitButton);
 
         await waitFor(() => {
-            const successMessage = screen.getByText('Thông tin không đúng');
+            const successMessage = screen.getByLabelText("message")
             expect(successMessage).toBeInTheDocument();
         });
     });

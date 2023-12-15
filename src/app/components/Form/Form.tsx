@@ -27,17 +27,26 @@ export default function Form({ email, confirm_password, password }: FormProps) {
             .then(async res => {
                 const data = await res.json()
                 if (data.status === 404) {
-                    alert("Email không đúng")
                     setMessage("Email không đúng")
+                    setTimeout(() => {
+                        alert("Email không đúng")
+                    }, 1000)
                 } else if (data.status === 405) {
-                    alert("Password không đúng")
                     setMessage("Password không đúng")
+                    setTimeout(() => {
+                        alert("Password không đúng")
+                    }, 1000)
+
                 } else if (data.status === 200) {
-                    alert("Đăng nhập thành công")
                     setMessage("Đăng nhập thành công")
+                    setTimeout(() => {
+                        alert("Đăng nhập thành công")
+                    }, 1000)
                 } else if (data.status === 500) {
-                    alert("Thông tin không đúng")
                     setMessage("Thông tin không đúng")
+                    setTimeout(() => {
+                        alert("Thông tin không đúng")
+                    }, 1000)
                 }
             })
     }
@@ -73,7 +82,7 @@ export default function Form({ email, confirm_password, password }: FormProps) {
                 </div>
             }
             {message && (
-                <div className="bg-green-200 p-2 rounded-md text-center hidden">{message}</div>
+                <div aria-label='message' className="bg-green-200 p-2 rounded-md text-center">{message}</div>
             )}
             <div className='flex w-full justify-center'>
                 <button className='p-2 bg-red-300 rounded-lg' type='submit'>Submit</button>
