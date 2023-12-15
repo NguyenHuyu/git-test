@@ -71,4 +71,22 @@ export const handlers = [
                 }),
         )
     }),
-]
+
+
+
+
+    rest.post('http://localhost:3000/api/login', async (req, res, ctx) => {
+        const { email, password }: any = await req.json()
+
+        if (email === 'test@example.com' && password === 'password') {
+            return res(ctx.status(200), ctx.json({ status: 200 }));
+        } else if (email === 'test@example.com') {
+            return res(ctx.status(404), ctx.json({ status: 404 }));
+        } else if (password === 'password') {
+            return res(ctx.status(405), ctx.json({ status: 405 }));
+        } else if (email !== 'test@example.com' && password !== 'password') {
+            return res(ctx.status(500), ctx.json({ status: 500 }));
+        }
+    }),
+
+];
